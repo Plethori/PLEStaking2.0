@@ -249,9 +249,9 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     function init() external onlyOwner whenNotPaused notInitialized {
         require(
             token.transferFrom(msg.sender, address(this), 10e6 ether),
-            "Could not transfer 10,000,000 as rewards"
+            "Could not transfer 8,000,000 as rewards"
         );
-        availableRewards = 10e6 ether;
+        availableRewards = 8e6 ether;
         stopRewardsBlock = 0;
         takeStakeFee = false;
         takeUnstakeFee = true;
