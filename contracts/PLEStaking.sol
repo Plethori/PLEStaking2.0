@@ -75,7 +75,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         uint256 stakedTokens;
         uint256 lastClaimedBlock;
         uint256 totalEarnedTokens;
-        uint256 totalFessPayed;
+        uint256 totalFeesPayed;
     }
     uint256 public totalStaked;
     mapping(address => StakeHolder) public stakeHolders;
@@ -240,8 +240,8 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         if (takeFee) {
             uint256 fee = (amount.mul(feeRate)).div(1e4);
             require(token.transfer(feeAddress, fee), "Could not transfer fees");
-            stakeHolders[msg.sender].totalFessPayed = stakeHolders[msg.sender]
-                .totalFessPayed
+            stakeHolders[msg.sender].totalFeesPayed = stakeHolders[msg.sender]
+                .totalFeesPayed
                 .add(fee);
             emit PayedFee(msg.sender, fee);
             return amount.sub(fee);
