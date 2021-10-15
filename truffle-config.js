@@ -18,7 +18,8 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const { infuraProjectId, mnemonic, etherscanApiKey } = require('./secrets.json');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
@@ -35,6 +36,38 @@ module.exports = {
    */
 
   networks: {
+    rinkeby: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://rinkeby.infura.io/v3/${infuraProjectId}`
+      ),
+      network_id: 4,
+      gasPrice: 10e9,
+      skipDryRun: true
+    },
+    ropsten: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://ropsten.infura.io/v3/${infuraProjectId}`
+      ),
+      network_id: 3,
+      gasPrice: 10e9,
+      skipDryRun: true
+    },
+    kovan: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://kovan.infura.io/v3/${infuraProjectId}`
+      ),
+      network_id: 42,
+      gasPrice: 10e9,
+      skipDryRun: true
+    },
+    goerli: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://goerli.infura.io/v3/${infuraProjectId}`
+      ),
+      network_id: 5,
+      gasPrice: 10e9,
+      skipDryRun: true
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -113,4 +146,10 @@ module.exports = {
     //   }
     // }
   // }
+  plugins: [
+    'truffle-plugin-verify'
+  ],
+  api_keys: {
+    etherscan: etherscanApiKey
+  },
 };

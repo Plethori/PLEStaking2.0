@@ -56,8 +56,8 @@ interface IStaking {
 contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     using SafeMath for uint256;
 
-    IERC20 public token = IERC20(0x4e16cA03007820c1D0881eaD746Da14f8E69a4d2);
-    address public feeAddress = 0x2658dE239e62AA3501b86cAeF700F4FF2fBAaE4E;
+    IERC20 public token = IERC20(0x36Bf64F3bbF6C0b5483f3A9f5f794bc91B104a06);
+    address public feeAddress = 0xF508b3f4b0300bF1a5b0227A2578D3613d909425;
 
     // rewards & fees
     uint256 public constant REWARD_RATE = 4000; // 40.00% APY
