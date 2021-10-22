@@ -6,13 +6,21 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "./Initializable.sol";
 
 interface IStaking {
     // Views
     function balanceOf(address account) external view returns (uint256);
 
+    function numberOfStakeHolders() external view returns (uint256);
+
     function unclaimedRewardsOf(address account)
+        external
+        view
+        returns (uint256);
+
+    function unclaimedRewardsOfUsers(uint256 begin, uint256 end)
         external
         view
         returns (uint256);
@@ -55,8 +63,9 @@ interface IStaking {
 
 contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     using SafeMath for uint256;
+    using EnumerableSet for EnumerableSet.AddressSet;
 
-    IERC20 public token = IERC20(0x36Bf64F3bbF6C0b5483f3A9f5f794bc91B104a06);
+    IERC20 public token = IERC20(0x3873965e73d9A21F88e645ce40B7db187FDE4931);
     address public feeAddress = 0xF508b3f4b0300bF1a5b0227A2578D3613d909425;
 
     // rewards & fees
@@ -79,6 +88,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     }
     uint256 public totalStaked;
     mapping(address => StakeHolder) public stakeHolders;
+    EnumerableSet.AddressSet private holders;
 
     // Views
     function balanceOf(address account)
@@ -90,6 +100,10 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         return stakeHolders[account].stakedTokens;
     }
 
+    function numberOfStakeHolders() external view override returns (uint256) {
+        return holders.length();
+    }
+
     function unclaimedRewardsOf(address account)
         external
         view
@@ -97,6 +111,21 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         returns (uint256)
     {
         return _calculateUnclaimedRewards(account);
+    }
+
+    function unclaimedRewardsOfUsers(uint256 begin, uint256 end)
+        external
+        view
+        override
+        returns (uint256)
+    {
+        uint256 totalUnclaimedRewards = 0;
+        for (uint256 i = begin; i < end && i < holders.length(); i++) {
+            totalUnclaimedRewards = totalUnclaimedRewards.add(
+                _calculateUnclaimedRewards(holders.at(i))
+            );
+        }
+        return totalUnclaimedRewards;
     }
 
     /**
@@ -155,6 +184,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
             .stakedTokens
             .add(amountAfterFees);
         totalStaked = totalStaked.add(amountAfterFees);
+        if (!holders.contains(msg.sender)) holders.add(msg.sender);
         emit Staked(msg.sender, amountAfterFees);
     }
 
@@ -174,6 +204,8 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
             .stakedTokens
             .sub(amount);
         totalStaked = totalStaked.sub(amount);
+        if (stakeHolders[msg.sender].stakedTokens == 0)
+            holders.remove(msg.sender);
         uint256 amountAfterFees = _takeFees(
             amount,
             takeUnstakeFee,
