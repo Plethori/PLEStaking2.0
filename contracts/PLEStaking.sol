@@ -223,12 +223,12 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     }
 
     function restakeRewards() external override whenNotPaused onlyInitialized {
-        require(_restakeRewards(), "Not rewards to restake");
+        require(_restakeRewards(), "No rewards to restake");
     }
 
     function claimRewards() external override whenNotPaused onlyInitialized {
         uint256 unclaimedRewards = _getRewards();
-        require(unclaimedRewards > 0, "Not rewards to claim");
+        require(unclaimedRewards > 0, "No rewards to claim");
         require(
             token.transfer(msg.sender, unclaimedRewards),
             "Could not transfer rewards from staking contract to msg.sender"
