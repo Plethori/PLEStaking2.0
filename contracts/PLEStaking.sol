@@ -70,6 +70,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
 
     // rewards & fees
     uint256 public constant REWARD_RATE = 4000; // 40.00% APY
+    uint256 public constant BLOCKS_IN_YEAR_MULTIPLIED = 21024e6;
     uint256 public constant STAKE_FEE_RATE = 150; // 1.50% staking fee
     uint256 public constant UNSTAKE_FEE_RATE = 50; // 0.50% unstaking fee
     uint256 public constant RESTAKE_FEE_RATE = 50; // 0.50% restaking fee
@@ -134,7 +135,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
      * rewardRatePerBlock =
      * 4000 (REWARD_RATE)
      * ------------------
-     * 10000 * 365 (days/Y) * 24 (H/day) * 60 (M/H) * 4 (Blocks/M) = 21024e6
+     * 10000 * 365 (days/Y) * 24 (H/day) * 60 (M/H) * 4 (Blocks/M) = 21024e6 (BLOCKS_IN_YEAR_MULTIPLIED)
      */
     function _calculateUnclaimedRewards(address account)
         private
@@ -153,7 +154,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         }
         // rewards calculation
         uint256 unclaimedRewards = stakedTokens.mul(blockDiff).mul(REWARD_RATE);
-        unclaimedRewards = unclaimedRewards.div(21024e6); // Audit: for gas efficieny
+        unclaimedRewards = unclaimedRewards.div(BLOCKS_IN_YEAR_MULTIPLIED); // Audit: for gas efficieny
         if (unclaimedRewards > availableRewards) return 0;
         return unclaimedRewards;
     }
@@ -184,7 +185,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
             .stakedTokens
             .add(amountAfterFees);
         totalStaked = totalStaked.add(amountAfterFees);
-        if (!holders.contains(msg.sender)) holders.add(msg.sender);
+        holders.add(msg.sender);
         emit Staked(msg.sender, amountAfterFees);
     }
 
