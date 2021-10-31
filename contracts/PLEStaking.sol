@@ -66,7 +66,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     using EnumerableSet for EnumerableSet.AddressSet;
 
     IERC20 public token = IERC20(0x3873965e73d9A21F88e645ce40B7db187FDE4931);
-    address public feeAddress = 0xF508b3f4b0300bF1a5b0227A2578D3613d909425;
+    address public feeAddress = 0x8B176d1D547aFd831E5c74787e4ec6d184a5078E;
 
     // rewards & fees
     uint256 public constant REWARD_RATE = 4000; // 40.00% APY
