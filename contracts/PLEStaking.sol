@@ -13,6 +13,11 @@ interface IStaking {
     // Views
     function balanceOf(address account) external view returns (uint256);
 
+    function totalClaimedRewardsOf(address account)
+        external
+        view
+        returns (uint256);
+
     function numberOfStakeHolders() external view returns (uint256);
 
     function unclaimedRewardsOf(address account)
@@ -99,6 +104,15 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
         returns (uint256)
     {
         return stakeHolders[account].stakedTokens;
+    }
+
+    function totalClaimedRewardsOf(address account)
+        external
+        view
+        override
+        returns (uint256)
+    {
+        return stakeHolders[account].totalEarnedTokens;
     }
 
     function numberOfStakeHolders() external view override returns (uint256) {
