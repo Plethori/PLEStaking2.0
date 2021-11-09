@@ -10,14 +10,14 @@
     <br />
     <br />
     <a href="https://app.uniswap.org/#/swap?outputCurrency=0x3873965e73d9a21f88e645ce40b7db187fde4931">Buy $PLE »</a>
-    .
+    ·
     <a href=""><strong>Stake $PLE »</strong></a>
     <br />
     <br />
     <a href="https://etherscan.io/address/0x3873965e73d9a21f88e645ce40b7db187fde4931#code">View Token Contract on Etherscan.io</a>
     ·
     <a href="">View Staking Contract on Etherscan.io</a>
-    .
+    ·
     <a href="https://github.com/Plethori/PLEStaking2.0/blob/main/Hacken_-_Plethori_Staking_V2.0_Security_Audit.pdf">View Hacken Security Audit</a>
   </p>
 </div>
