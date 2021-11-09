@@ -14,9 +14,9 @@
     <a href=""><strong>Stake $PLE »</strong></a>
     <br />
     <br />
-    <a href="https://etherscan.io/address/0x3873965e73d9a21f88e645ce40b7db187fde4931#code">Token Contract <img src="https://etherscan.io/images/brandassets/etherscan-logo-circle.png" width="10" height="10"/></a>
+    <a href="https://etherscan.io/address/0x3873965e73d9a21f88e645ce40b7db187fde4931#code">Token Contract <img src="https://etherscan.io/images/brandassets/etherscan-logo-circle.png" width="20" height="20"/></a>
     ·
-    <a href="">Staking Contract</a>
+    <a href="">Staking Contract <img src="https://etherscan.io/images/brandassets/etherscan-logo-circle.png" width="20" height="20"/></a>
     ·
     <a href="https://github.com/Plethori/PLEStaking2.0/blob/main/Hacken_-_Plethori_Staking_V2.0_Security_Audit.pdf">Hacken Security Audit</a>
   </p>
