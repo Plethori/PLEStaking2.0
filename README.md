@@ -14,7 +14,7 @@
     <a href=""><strong>Stake $PLE »</strong></a>
     <br />
     <br />
-    <a href="https://etherscan.io/address/0x3873965e73d9a21f88e645ce40b7db187fde4931#code">Token Contract</a>
+    <a href="https://etherscan.io/address/0x3873965e73d9a21f88e645ce40b7db187fde4931#code">Token Contract <img src="https://etherscan.io/images/brandassets/etherscan-logo-circle.png" width="10" height="10"/></a>
     ·
     <a href="">Staking Contract</a>
     ·
