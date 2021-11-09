@@ -6,7 +6,7 @@
   <h3 align="center">Staking Platform V2.0</h3>
 
   <p align="center">
-    Plthori's staking platform V2.0 repository including the smart contracts source code and security audit.
+    Plthori's staking platform V2.0 repository includes the smart contracts source code and security audit.
     <br />
     <br />
     <a href="https://app.uniswap.org/#/swap?outputCurrency=0x3873965e73d9a21f88e645ce40b7db187fde4931">Buy $PLE »</a>
