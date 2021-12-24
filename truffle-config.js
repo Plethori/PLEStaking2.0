@@ -18,7 +18,7 @@
  *
  */
 
-const { infuraProjectId, mnemonic, etherscanApiKey } = require('./secrets.json');
+const { infuraProjectId, mnemonic, etherscanApiKey, bscscanApiKey, snowtraceApiKey } = require('./secrets.json');
 const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
 // const fs = require('fs');
@@ -35,16 +35,16 @@ module.exports = {
    * $ truffle test --network <network-name>
    */
 
-  networks: {
+  networks: {    
     mainnet: {
-      provider: () => new HDWalletProvider(
-        mnemonic, `https://mainnet.infura.io/v3/${infuraProjectId}`
-      ),
-      network_id: 1,
-      gasPrice: 10e9,
-      skipDryRun: true
-    },
-    rinkeby: {
+    provider: () => new HDWalletProvider(
+      mnemonic, `https://mainnet.infura.io/v3/${infuraProjectId}`
+    ),
+    network_id: 1,
+    gasPrice: 10e9,
+    skipDryRun: true
+  },    
+  rinkeby: {
       provider: () => new HDWalletProvider(
         mnemonic, `https://rinkeby.infura.io/v3/${infuraProjectId}`
       ),
@@ -76,6 +76,44 @@ module.exports = {
       gasPrice: 10e9,
       skipDryRun: true
     },
+    bsc: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://bsc-dataseed1.binance.org`
+      ),
+      network_id: 56,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      production: true
+    },
+    bsctestnet: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://data-seed-prebsc-1-s1.binance.org:8545`
+      ),
+      network_id: 97,
+      timeoutBlocks: 200,
+      confirmations: 5,
+      production: true    // Treats this network as if it was a public net. (default: false)
+    },
+    avax: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://api.avax.network/ext/bc/C/rpc`
+      ),
+      network_id: 43114,
+      confirmations: 10,
+      timeoutBlocks: 200,
+      skipDryRun: true,
+      production: true
+    },
+    avaxtestnet: {
+      provider: () => new HDWalletProvider(
+        mnemonic, `https://api.avax-test.network/ext/bc/C/rpc`
+      ),
+      network_id: 43113,
+      timeoutBlocks: 200,
+      confirmations: 5,
+      production: true    // Treats this network as if it was a public net. (default: false)
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -83,9 +121,9 @@ module.exports = {
     // options below to some value.
     //
     development: {
-     host: "127.0.0.1",     // Localhost (default: none)
-     port: 7545,            // Standard Ethereum port (default: none)
-     network_id: "5777",       // Any network (default: none)
+      host: "127.0.0.1",     // Localhost (default: none)
+      port: 7545,            // Standard Ethereum port (default: none)
+      network_id: "5777",       // Any network (default: none)
     },
     // Another network with more advanced options...
     // advanced: {
@@ -145,19 +183,21 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
   //
   // db: {
-    // enabled: false,
-    // host: "127.0.0.1",
-    // adapter: {
-    //   name: "sqlite",
-    //   settings: {
-    //     directory: ".db"
-    //   }
-    // }
+  // enabled: false,
+  // host: "127.0.0.1",
+  // adapter: {
+  //   name: "sqlite",
+  //   settings: {
+  //     directory: ".db"
+  //   }
+  // }
   // }
   plugins: [
     'truffle-plugin-verify'
   ],
   api_keys: {
-    etherscan: etherscanApiKey
+    etherscan: etherscanApiKey,
+    bscscan: bscscanApiKey,
+    snowtrace: snowtraceApiKey
   },
 };

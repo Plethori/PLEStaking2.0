@@ -15,6 +15,6 @@
   "devDependencies": {
     "@nomiclabs/hardhat-etherscan": "^2.1.6",
     "@truffle/hdwallet-provider": "^1.5.1",
-    "truffle-plugin-verify": "^0.5.15"
+    "truffle-plugin-verify": "^0.5.20"
   }
 }

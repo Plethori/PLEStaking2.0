@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.6;
 
-contract PLEToken {
+contract PLETokenAvax {
     string public constant name = "Plethori";
     string public constant symbol = "PLE";
     uint8 public constant decimals = 18;

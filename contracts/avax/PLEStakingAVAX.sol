@@ -9,7 +9,7 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/structs/EnumerableSet.sol";
 import "../Initializable.sol";
 
-interface IStaking {
+interface IStakingAvax {
     // Views
     function balanceOf(address account) external view returns (uint256);
 
@@ -66,16 +66,16 @@ interface IStaking {
     event RewardsWithdrawnEmergently(address emergencyAddress, uint256 amount);
 }
 
-contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
+contract PLEStakingAvax is Ownable, Pausable, Initializable, IStakingAvax {
     using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.AddressSet;
 
-    IERC20 public token = IERC20(0x3873965e73d9A21F88e645ce40B7db187FDE4931);
+    IERC20 public token = IERC20(0x0F02B40fc0558Fd8D6CE4100F06eE1Cf897F0DA1);
     address public feeAddress = 0x8B176d1D547aFd831E5c74787e4ec6d184a5078E;
 
     // rewards & fees
     uint256 public constant REWARD_RATE = 4000; // 40.00% APY
-    uint256 public constant BLOCKS_IN_YEAR_MULTIPLIED = 21024e6;
+    uint256 public constant BLOCKS_IN_YEAR_MULTIPLIED = 173448e6;
     uint256 public constant STAKE_FEE_RATE = 150; // 1.50% staking fee
     uint256 public constant UNSTAKE_FEE_RATE = 50; // 0.50% unstaking fee
     uint256 public constant RESTAKE_FEE_RATE = 50; // 0.50% restaking fee
@@ -149,7 +149,7 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
      * rewardRatePerBlock =
      * 4000 (REWARD_RATE)
      * ------------------
-     * 10000 * 365 (days/Y) * 24 (H/day) * 60 (M/H) * 4 (Blocks/M) = 21024e6 (BLOCKS_IN_YEAR_MULTIPLIED)
+     * 10000 * 365 (days/Y) * 24 (H/day) * 60 (M/H) * 33 (Blocks/M) = 173448e6 (BLOCKS_IN_YEAR_MULTIPLIED)
      */
     function _calculateUnclaimedRewards(address account)
         private
@@ -299,10 +299,10 @@ contract PLEStaking is Ownable, Pausable, Initializable, IStaking {
     // Only Owner
     function init() external onlyOwner whenNotPaused notInitialized {
         require(
-            token.transferFrom(msg.sender, address(this), 4e6 ether),
+            token.transferFrom(msg.sender, address(this), 4e6 * 1e18),
             "Could not transfer 4,000,000 as rewards"
         );
-        availableRewards = 4e6 ether;
+        availableRewards = 4e6 * 1e18;
         stopRewardsBlock = 0;
         takeStakeFee = false;
         takeUnstakeFee = true;
