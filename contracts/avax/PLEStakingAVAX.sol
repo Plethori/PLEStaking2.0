@@ -70,7 +70,7 @@ contract PLEStakingAvax is Ownable, Pausable, Initializable, IStakingAvax {
     using SafeMath for uint256;
     using EnumerableSet for EnumerableSet.AddressSet;
 
-    IERC20 public token = IERC20(0x0F02B40fc0558Fd8D6CE4100F06eE1Cf897F0DA1);
+    IERC20 public token = IERC20(0x47aA3650CFF9930f277D4670dB138DA818E1a3CA);
     address public feeAddress = 0x8B176d1D547aFd831E5c74787e4ec6d184a5078E;
 
     // rewards & fees
@@ -304,7 +304,7 @@ contract PLEStakingAvax is Ownable, Pausable, Initializable, IStakingAvax {
         );
         availableRewards = 4e6 * 1e18;
         stopRewardsBlock = 0;
-        takeStakeFee = false;
+        takeStakeFee = true;
         takeUnstakeFee = true;
         takeRestakeFee = true;
         _init();
